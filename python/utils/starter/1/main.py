@@ -1,10 +1,10 @@
-def eggs(filename: str) -> list[str]:
+def process_eggs(filename: str) -> list[str]:
     with open(filename, encoding="utf-8") as f:
-        return list(filter(None, f.read().split("\n")))
+        return list(filter(None, f.read().splitlines()))
 
 
 def main(filename: str) -> int:
-    spam = eggs(filename)
+    spam = process_eggs(filename)
     
     return 0
 
