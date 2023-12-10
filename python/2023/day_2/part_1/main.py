@@ -46,18 +46,16 @@ def process_games(filename: str) -> list[Game]:
     return list(map(format_raw, raw))
 
 
-def get_power_of_game(game: Game) -> int:
-    fewest = Set()
+def check_set_if_possible(set: Set) -> bool:
+    return set.red <= 12 and set.green <= 13 and set.blue <= 14
 
+
+def check_game_if_possible(game: Game) -> bool:
     for set in game.sets:
-        if set.red > fewest.red:
-            fewest.red = set.red
-        if set.green > fewest.green:
-            fewest.green = set.green
-        if set.blue > fewest.blue:
-            fewest.blue = set.blue
+        if check_set_if_possible(set) is False:
+            return False
 
-    return max(fewest.red, 1) * max(fewest.green, 1) * max(fewest.blue, 1)
+    return True
 
 
 def main(filename: str) -> int:
@@ -65,13 +63,14 @@ def main(filename: str) -> int:
 
     sum = 0
     for processed_game in processed_games:
-        sum += get_power_of_game(processed_game)
+        if (check_game_if_possible(processed_game) is True):
+            sum += processed_game.game_num
     return sum
 
 
 if __name__ == "__main__":
-    print("---Example----")
+    print("---Example---")
     print(main("example.txt"))
     
-    print("---Input--")
+    print("---Input---")
     print(main("input.txt"))

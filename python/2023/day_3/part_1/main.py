@@ -109,10 +109,10 @@ def main(filename: str) -> int:
 
 
 if __name__ == "__main__":
-    print("---Example----")
+    print("---Example---")
     print(main("example.txt"))
 
     reset_global_data()
 
-    print("---Input--")
+    print("---Input---")
     print(main("input.txt"))

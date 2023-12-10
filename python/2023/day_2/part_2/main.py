@@ -1,3 +1,4 @@
+import os
 from typing import NewType, Dict, Union, NamedTuple
 import re
 
@@ -41,21 +42,24 @@ def format_raw(raw: str) -> Game:
 
 
 def process_games(filename: str) -> list[Game]:
-    with open(filename, encoding="utf-8") as f:
+    path = os.path.dirname(__file__)
+    with open(os.path.join(path, filename), encoding="utf-8") as f:
         raw = list(filter(None, f.read().split("\n")))
     return list(map(format_raw, raw))
 
 
-def check_set_if_possible(set: Set) -> bool:
-    return set.red <= 12 and set.green <= 13 and set.blue <= 14
+def get_power_of_game(game: Game) -> int:
+    fewest = Set()
 
-
-def check_game_if_possible(game: Game) -> bool:
     for set in game.sets:
-        if check_set_if_possible(set) is False:
-            return False
+        if set.red > fewest.red:
+            fewest.red = set.red
+        if set.green > fewest.green:
+            fewest.green = set.green
+        if set.blue > fewest.blue:
+            fewest.blue = set.blue 
 
-    return True
+    return max(fewest.red, 1) * max(fewest.green, 1) * max(fewest.blue, 1)
 
 
 def main(filename: str) -> int:
@@ -63,14 +67,13 @@ def main(filename: str) -> int:
 
     sum = 0
     for processed_game in processed_games:
-        if (check_game_if_possible(processed_game) is True):
-            sum += processed_game.game_num
+        sum += get_power_of_game(processed_game)
     return sum
 
 
 if __name__ == "__main__":
-    print("---Example----")
+    print("---Example---")
     print(main("example.txt"))
     
-    print("---Input--")
+    print("---Input---")
     print(main("input.txt"))

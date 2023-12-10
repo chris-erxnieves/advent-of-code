@@ -1,2 +1,5 @@
 .idea
-python/.idea
+.vscode
+
+# Compiled C++ files
+main
