@@ -1,3 +1,4 @@
+import os
 from typing import NewType, Dict, Union, NamedTuple
 import re
 
@@ -41,7 +42,7 @@ def format_raw(raw: str) -> Game:
 
 
 def process_games(filename: str) -> list[Game]:
-    with open(filename, encoding="utf-8") as f:
+    with open(os.path.join(os.path.dirname(__file__), filename), encoding="utf-8") as f:
         raw = list(filter(None, f.read().split("\n")))
     return list(map(format_raw, raw))
 

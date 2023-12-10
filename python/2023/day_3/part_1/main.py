@@ -1,3 +1,6 @@
+import os
+
+
 class PartNumberInfo:
     def __init__(self, value, x_from, x_to, y):
         self.value = value
@@ -29,7 +32,7 @@ max_y_index = None
 
 
 def process_engine_schematic(filename: str) -> list[str]:
-    with open(filename, encoding="utf-8") as f:
+    with open(os.path.join(os.path.dirname(__file__), filename), encoding="utf-8") as f:
         return list(filter(None, f.read().splitlines()))
 
 

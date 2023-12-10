@@ -1,3 +1,6 @@
+import os
+
+
 words = {
     'one': 1,
     'two': 2,
@@ -11,7 +14,7 @@ words = {
 }
 
 def process_calibration_words(filename: str) -> list[str]:
-    with open(filename, encoding="utf-8") as f:
+    with open(os.path.join(os.path.dirname(__file__), filename), encoding="utf-8") as f:
         return list(filter(None, f.read().split("\n")))
 
 

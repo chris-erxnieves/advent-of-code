@@ -42,8 +42,7 @@ def format_raw(raw: str) -> Game:
 
 
 def process_games(filename: str) -> list[Game]:
-    path = os.path.dirname(__file__)
-    with open(os.path.join(path, filename), encoding="utf-8") as f:
+    with open(os.path.join(os.path.dirname(__file__), filename), encoding="utf-8") as f:
         raw = list(filter(None, f.read().split("\n")))
     return list(map(format_raw, raw))
 
