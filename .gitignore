@@ -1,5 +1,8 @@
 .idea
 .vscode
 
+# Python virtual environment
+venv
+
 # Compiled C++ files
 main
